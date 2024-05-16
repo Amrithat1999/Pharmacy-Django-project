@@ -1,0 +1,48 @@
+
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About</title>
+    <style media="screen">
+        body {
+            background-color: #B3E5FC;
+            background-image: url('{% static "images/pharmacy.png" %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 10;
+            padding: 10;
+        }
+
+        .content {
+            text-align: center;
+            padding: 100px;
+            color: #fff; /* Adjust text color for better visibility */
+        }
+
+        .footer {
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body>
+    {% if request.user.is_authenticated %}
+    {% include "ecom/customer_navbar.html" %}
+    {% else %}
+    {% include "ecom/navbar.html" %}
+    {% endif %}<br><br><br><br><br><br><br><br>
+    <div class="content">
+        <h3>
+          “Water, air, and cleanness are the chief articles in my pharmay.”<br>  </h3>
+    </div>
+</body>
+
+</html>
+

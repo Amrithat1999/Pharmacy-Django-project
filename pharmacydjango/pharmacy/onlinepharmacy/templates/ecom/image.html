@@ -1,0 +1,78 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Text Extraction</title>
+</head>
+<body style="background-image: url('{% static 'images/medicine2.png' %}'); background-repeat: no-repeat ; background-size: cover">
+    <h1>Image Text Extraction</h1>
+    <form action="/image" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Extract Text</button>
+    </form>
+    <br>
+    
+    {% if extracted_text %}
+    <h2>Extracted Text:</h2>
+    <ul>
+        {% for item in extracted_text %}
+            {{ item }}
+        {% endfor %}
+    </ul>
+    
+    <h2>Matching Products:</h2>
+    <ul>
+        <div class="row">
+            {% for p in products %}
+            {% for item in extracted_text %}
+                {% if p.name in item %}
+             
+      <!-- card1 -->
+
+      <div class="container page-wrapper" style="width: 300px;">
+        <div class="page-inner">
+          <div class="row">
+            <div class="el-wrapper">
+              <div class="box-up">
+                <img class="img" src="{% static p.product_image.url %}" alt="product pic" height="300px" width="300px">
+                <div class="img-info">
+                  <div class="info-inner">
+                    <span style="background-color:#08050a; color:yellow;"class="p-company">{{p.name}}</span>
+
+                  </div>
+                  <div class="a-size">{{p.description}}</div>
+                </div>
+              </div>
+
+              <div class="box-down">
+                <div class="h-bg">
+                  <div class="h-bg-inner"></div>
+                </div>
+
+                <a class="cart" href="{% url 'add-to-cart' p.id  %}">
+                  <span class="price">₹ {{p.price}}</span><br>
+                  <span class="add-to-cart">
+                    <span class="txt">Add in cart</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+  {% endfor %}
+        </div>
+     
+</ul>
+{% endif %}
+</div>
+</body>
+</html>
+
